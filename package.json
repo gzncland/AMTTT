@@ -1,0 +1,27 @@
+{
+  "name": "amttt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gzncland/AMTTT.git"
+  },
+  "author": "Shadow Studio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gzncland/AMTTT/issues"
+  },
+  "homepage": "https://github.com/gzncland/AMTTT#readme",
+  "devDependencies": {
+    "glob": "^5.0.15",
+    "gulp": "^3.9.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-webpack": "^1.5.0",
+    "gulp-wrap": "^0.11.0",
+    "vinyl-named": "^1.1.0"
+  }
+}
