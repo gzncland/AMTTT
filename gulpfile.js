@@ -2,6 +2,7 @@
 var gulp = require('gulp');
 var clean = require('gulp-clean');
 var wrap = require("gulp-wrap");
+var uglify = require("gulp-uglify");
 var named = require('vinyl-named');
 var webpack = require('gulp-webpack');
 
@@ -37,8 +38,15 @@ gulp.task('pack', ['compile'], function(callback) {
 });
 
 gulp.task('build', ['pack', 'clean-bin'], function() {
-  // TODO: copy file from tmp to bin
   return gulp.src(['tmp/out/pack/*.js'])
-  // TODO optional: insert compilation here
+    .pipe(wrap({ src: 'header.js' }))
+    .pipe(gulp.dest('bin/debug'))
+    .pipe(uglify({
+      mangle: false,
+      preserveComments: function(node, comment) {
+        var s = comment.value;
+        return s[0] === '!' || s[0] === ':';
+      }
+    }))
     .pipe(gulp.dest('bin'));
 });
