@@ -1,18 +1,19 @@
 //=============================================================================
-// AMTT_WindowMapStatus.js ver 0.0.1
+// WindowMapStatus.js ver 0.0.2
 //=============================================================================
 
 /*:
  * @plugindesc 在地图上显示角色状态的类
  * @author Shadow Studio
  *
- * @help 可选插件(也许是必须插件?)
  */
  (function() {
 
  	function Window_MapStatus() {
     	this.initialize.apply(this, arguments);
 	}
+
+	var keyItems = new Array();
 
 	Window_MapStatus.prototype = Object.create(Window_Base.prototype);
 	Window_MapStatus.prototype.constructor = Window_MapStatus;
@@ -21,6 +22,12 @@
 	    var wight = this.windowWidth();
 	    var height = this.windowHeight();
 	    Window_Base.prototype.initialize.call(this, 0, 0, wight, height);
+	    //添加带key标签的物品进描绘队列
+	    for (var i = 1; i < $dataItems.length; i++) {
+	    	if($dataItems[i].meta.type === 'key'){
+	    		keyItems.push($dataItems[i]);
+	    	}
+	    };
 	    this.refresh();
 	};
 
@@ -31,35 +38,48 @@
 	Window_MapStatus.prototype.windowHeight = function() {
 	    return Graphics.boxHeight;
 	};
+	var WINDOW_MAP_STSTUS_BASE_OFFSET_Y = 96;
+	var WINDOW_MAP_STSTUS_LINE_HEIGHT = 36;
+	var WINDOW_MAP_STSTUS_HP_Y = WINDOW_MAP_STSTUS_BASE_OFFSET_Y;
+	var WINDOW_MAP_STSTUS_ATK_Y = WINDOW_MAP_STSTUS_BASE_OFFSET_Y + WINDOW_MAP_STSTUS_LINE_HEIGHT;
+	var WINDOW_MAP_STSTUS_DEF_Y = WINDOW_MAP_STSTUS_BASE_OFFSET_Y + WINDOW_MAP_STSTUS_LINE_HEIGHT * 2;
+
+	var WINDOW_MAP_STSTUS_GOLD_Y = WINDOW_MAP_STSTUS_BASE_OFFSET_Y + WINDOW_MAP_STSTUS_LINE_HEIGHT * 4;
+	var WINDOW_MAP_STSTUS_EXP_Y = WINDOW_MAP_STSTUS_BASE_OFFSET_Y + WINDOW_MAP_STSTUS_LINE_HEIGHT * 5;
+
+	var WINDOW_MAP_STSTUS_KEY_Y = WINDOW_MAP_STSTUS_BASE_OFFSET_Y + WINDOW_MAP_STSTUS_LINE_HEIGHT * 7;
 
 	Window_MapStatus.prototype.refresh = function() {
 	    this.contents.clear();
-	    
         var width = this.contentsWidth();
-        this.drawBackground(0, 0, width, this.lineHeight());
+        this.drawFace($amttActor.activeActor.faceName(),$amttActor.activeActor.faceIndex(),0, 0, 80, 80);
+        //NAME
+        this.drawText($amttActor.activeActor.name(), WINDOW_MAP_STSTUS_BASE_OFFSET_Y, 0, width - WINDOW_MAP_STSTUS_BASE_OFFSET_Y, 'left');
         //HP
-        this.drawText('HP', 0, 0, width, 'left');
-	    this.drawText(''  + $amttActor.activeActor.hp, 0, 0,  width, 'right');
+        this.drawText('HP', 0, WINDOW_MAP_STSTUS_HP_Y, width, 'left');
+	    this.drawText(''  + $amttActor.activeActor.hp, 0, WINDOW_MAP_STSTUS_HP_Y,  width, 'right');
 	    //ATK
-        this.drawText('ATK', 0, this.lineHeight(), width, 'left');
-	    this.drawText(''  + $amttActor.activeActor.atk, 0, this.lineHeight(),  width, 'right');
+        this.drawText('ATK', 0, WINDOW_MAP_STSTUS_ATK_Y, width, 'left');
+	    this.drawText(''  + $amttActor.activeActor.atk, 0, WINDOW_MAP_STSTUS_ATK_Y,  width, 'right');
 	    //DEF
-        this.drawText('DEF', 0, this.lineHeight() * 2, width, 'left');
-	    this.drawText(''  + $amttActor.activeActor.def, 0, this.lineHeight() * 2,  width, 'right');
+        this.drawText('DEF', 0, WINDOW_MAP_STSTUS_DEF_Y, width, 'left');
+	    this.drawText(''  + $amttActor.activeActor.def, 0, WINDOW_MAP_STSTUS_DEF_Y,  width, 'right');
 
 	    //GOLD
-	    this.drawText('GOLD', 0, this.lineHeight() * 4, width, 'left');
-	    this.drawText(''  + $gameParty.gold(), 0, this.lineHeight() * 4,  width, 'right');
+	    this.drawText('GOLD',0 , WINDOW_MAP_STSTUS_GOLD_Y, width, 'left');
+	    this.drawText(''  + $gameParty.gold(), 0, WINDOW_MAP_STSTUS_GOLD_Y,  width, 'right');
 	    //EXP
-	    this.drawText('EXP', 0, this.lineHeight() * 5, width, 'left');
-	    this.drawText(''  + $amttActor.activeActor.currentExp(), 0, this.lineHeight() * 5,  width, 'right');
-	};
-
-	Window_MapStatus.prototype.drawBackground = function(x, y, width, height) {
-	    var color1 = this.dimColor1();
-	    var color2 = this.dimColor2();
-	    this.contents.gradientFillRect(x, y, width / 2, height, color2, color1);
-	    this.contents.gradientFillRect(x + width / 2, y, width / 2, height, color1, color2);
+	    this.drawText('EXP', 0, WINDOW_MAP_STSTUS_EXP_Y, width, 'left');
+	    this.drawText(''  + $amttActor.activeActor.currentExp(), 0 , WINDOW_MAP_STSTUS_EXP_Y,  width, 'right');
+	    //KEY
+	    for (var i = 0; i < keyItems.length; i++) {
+	    	var y = WINDOW_MAP_STSTUS_KEY_Y + i * WINDOW_MAP_STSTUS_LINE_HEIGHT;
+	    	//提取持有物品个数
+	    	var itemCount = Number($gameParty._items[keyItems[i].id] || 0);
+		    this.drawText(keyItems[i].name, 0, y , width, 'left');
+		    this.drawText('' + itemCount , 0 , y,  width, 'right');
+	    };
+	    
 	};
 
  	Scene_Map.prototype.createMapStatusWindow = function() {
