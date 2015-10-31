@@ -70,7 +70,7 @@
 	//获取敌人每回合伤害
 	AMTTEnemyProxy.prototype.getEnemyDpt = function(setActor, setEnemy){
 		var enemyAtk = Number(setEnemy.meta.atk || ThrowEnemyProxyError(setEnemy,'ATK'));
-		var actorDef = $amttActor.activeActor.def
+		var actorDef = setActor.def
 		return enemyAtk - actorDef;
 	}
 

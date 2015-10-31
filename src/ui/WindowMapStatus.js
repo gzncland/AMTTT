@@ -1,5 +1,5 @@
 //=============================================================================
-// WindowMapStatus.js ver 0.0.2
+// WindowMapStatus.js ver 0.0.3
 //=============================================================================
 
 /*:
@@ -38,42 +38,43 @@
 	Window_MapStatus.prototype.windowHeight = function() {
 	    return Graphics.boxHeight;
 	};
-	var WINDOW_MAP_STSTUS_BASE_OFFSET_Y = 96;
-	var WINDOW_MAP_STSTUS_LINE_HEIGHT = 36;
-	var WINDOW_MAP_STSTUS_HP_Y = WINDOW_MAP_STSTUS_BASE_OFFSET_Y;
-	var WINDOW_MAP_STSTUS_ATK_Y = WINDOW_MAP_STSTUS_BASE_OFFSET_Y + WINDOW_MAP_STSTUS_LINE_HEIGHT;
-	var WINDOW_MAP_STSTUS_DEF_Y = WINDOW_MAP_STSTUS_BASE_OFFSET_Y + WINDOW_MAP_STSTUS_LINE_HEIGHT * 2;
+	var WINDOW_MAP_STATUS_BASE_OFFSET_Y = 96;
+	var WINDOW_MAP_STATUS_LINE_HEIGHT = 36;
+	var WINDOW_MAP_STATUS_HP_Y = WINDOW_MAP_STATUS_BASE_OFFSET_Y;
+	var WINDOW_MAP_STATUS_ATK_Y = WINDOW_MAP_STATUS_BASE_OFFSET_Y + WINDOW_MAP_STATUS_LINE_HEIGHT;
+	var WINDOW_MAP_STATUS_DEF_Y = WINDOW_MAP_STATUS_BASE_OFFSET_Y + WINDOW_MAP_STATUS_LINE_HEIGHT * 2;
 
-	var WINDOW_MAP_STSTUS_GOLD_Y = WINDOW_MAP_STSTUS_BASE_OFFSET_Y + WINDOW_MAP_STSTUS_LINE_HEIGHT * 4;
-	var WINDOW_MAP_STSTUS_EXP_Y = WINDOW_MAP_STSTUS_BASE_OFFSET_Y + WINDOW_MAP_STSTUS_LINE_HEIGHT * 5;
+	var WINDOW_MAP_STATUS_GOLD_Y = WINDOW_MAP_STATUS_BASE_OFFSET_Y + WINDOW_MAP_STATUS_LINE_HEIGHT * 4;
+	var WINDOW_MAP_STATUS_EXP_Y = WINDOW_MAP_STATUS_BASE_OFFSET_Y + WINDOW_MAP_STATUS_LINE_HEIGHT * 5;
 
-	var WINDOW_MAP_STSTUS_KEY_Y = WINDOW_MAP_STSTUS_BASE_OFFSET_Y + WINDOW_MAP_STSTUS_LINE_HEIGHT * 7;
+	var WINDOW_MAP_STATUS_KEY_Y = WINDOW_MAP_STATUS_BASE_OFFSET_Y + WINDOW_MAP_STATUS_LINE_HEIGHT * 7;
 
 	Window_MapStatus.prototype.refresh = function() {
 	    this.contents.clear();
         var width = this.contentsWidth();
-        this.drawFace($amttActor.activeActor.faceName(),$amttActor.activeActor.faceIndex(),0, 0, 80, 80);
+        var actor = $gameParty.activeActor;
+        this.drawFace(actor.faceName(),actor.faceIndex(),0, 0, 80, 80);
         //NAME
-        this.drawText($amttActor.activeActor.name(), WINDOW_MAP_STSTUS_BASE_OFFSET_Y, 0, width - WINDOW_MAP_STSTUS_BASE_OFFSET_Y, 'left');
+        this.drawText(actor.name(), WINDOW_MAP_STATUS_BASE_OFFSET_Y, 0, width - WINDOW_MAP_STATUS_BASE_OFFSET_Y, 'left');
         //HP
-        this.drawText('HP', 0, WINDOW_MAP_STSTUS_HP_Y, width, 'left');
-	    this.drawText(''  + $amttActor.activeActor.hp, 0, WINDOW_MAP_STSTUS_HP_Y,  width, 'right');
+        this.drawText('HP', 0, WINDOW_MAP_STATUS_HP_Y, width, 'left');
+	    this.drawText(''  + actor.hp, 0, WINDOW_MAP_STATUS_HP_Y,  width, 'right');
 	    //ATK
-        this.drawText('ATK', 0, WINDOW_MAP_STSTUS_ATK_Y, width, 'left');
-	    this.drawText(''  + $amttActor.activeActor.atk, 0, WINDOW_MAP_STSTUS_ATK_Y,  width, 'right');
+        this.drawText('ATK', 0, WINDOW_MAP_STATUS_ATK_Y, width, 'left');
+	    this.drawText(''  + actor.atk, 0, WINDOW_MAP_STATUS_ATK_Y,  width, 'right');
 	    //DEF
-        this.drawText('DEF', 0, WINDOW_MAP_STSTUS_DEF_Y, width, 'left');
-	    this.drawText(''  + $amttActor.activeActor.def, 0, WINDOW_MAP_STSTUS_DEF_Y,  width, 'right');
+        this.drawText('DEF', 0, WINDOW_MAP_STATUS_DEF_Y, width, 'left');
+	    this.drawText(''  + actor.def, 0, WINDOW_MAP_STATUS_DEF_Y,  width, 'right');
 
 	    //GOLD
-	    this.drawText('GOLD',0 , WINDOW_MAP_STSTUS_GOLD_Y, width, 'left');
-	    this.drawText(''  + $gameParty.gold(), 0, WINDOW_MAP_STSTUS_GOLD_Y,  width, 'right');
+	    this.drawText('GOLD',0 , WINDOW_MAP_STATUS_GOLD_Y, width, 'left');
+	    this.drawText(''  + $gameParty.gold(), 0, WINDOW_MAP_STATUS_GOLD_Y,  width, 'right');
 	    //EXP
-	    this.drawText('EXP', 0, WINDOW_MAP_STSTUS_EXP_Y, width, 'left');
-	    this.drawText(''  + $amttActor.activeActor.currentExp(), 0 , WINDOW_MAP_STSTUS_EXP_Y,  width, 'right');
+	    this.drawText('EXP', 0, WINDOW_MAP_STATUS_EXP_Y, width, 'left');
+	    this.drawText(''  + actor.currentExp(), 0 , WINDOW_MAP_STATUS_EXP_Y,  width, 'right');
 	    //KEY
 	    for (var i = 0; i < keyItems.length; i++) {
-	    	var y = WINDOW_MAP_STSTUS_KEY_Y + i * WINDOW_MAP_STSTUS_LINE_HEIGHT;
+	    	var y = WINDOW_MAP_STATUS_KEY_Y + i * WINDOW_MAP_STATUS_LINE_HEIGHT;
 	    	//提取持有物品个数
 	    	var itemCount = Number($gameParty._items[keyItems[i].id] || 0);
 		    this.drawText(keyItems[i].name, 0, y , width, 'left');

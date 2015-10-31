@@ -6,5 +6,6 @@
  */
 
 var EnemyProxy = require('./core/EnemyProxy');
+var GameParty = require('./core/GameParty');
 var GameActor = require('./core/GameActor');
 var GameEvent = require('./core/GameEvent');

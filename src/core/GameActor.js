@@ -7,13 +7,7 @@
 
 	}
 
-	Object.defineProperties(AMTTActor.prototype, {
-		activeActor : {
-			get : function() {
-				return $gameActors._data[1];
-			}, configurable: false
-		}
-	});
+	
 
 	module.exports = new AMTTActor();
 })();
