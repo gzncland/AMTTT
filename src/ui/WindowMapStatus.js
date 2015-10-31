@@ -13,8 +13,6 @@
         this.initialize.apply(this, arguments);
     }
 
-    var keyItems = new Array();
-
     Window_MapStatus.prototype = Object.create(Window_Base.prototype);
     Window_MapStatus.prototype.constructor = Window_MapStatus;
 
@@ -23,9 +21,10 @@
         var height = this.windowHeight();
         Window_Base.prototype.initialize.call(this, 0, 0, wight, height);
         //添加带key标签的物品进描绘队列
+        this.keyItems = [];
         for (var i = 1; i < $dataItems.length; i++) {
             if($dataItems[i].meta.type === 'key'){
-                keyItems.push($dataItems[i]);
+                this.keyItems.push($dataItems[i]);
             }
         };
         this.refresh();
@@ -73,11 +72,11 @@
         this.drawText('EXP', 0, STATUS_EXP_Y, width, 'left');
         this.drawText(''  + actor.currentExp(), 0 , STATUS_EXP_Y,  width, 'right');
         //KEY
-        for (var i = 0; i < keyItems.length; i++) {
+        for (var i = 0; i < this.keyItems.length; i++) {
             var y = STATUS_KEY_Y + i * LINE_HEIGHT;
             //提取持有物品个数
-            var itemCount = Number($gameParty._items[keyItems[i].id] || 0);
-            this.drawText(keyItems[i].name, 0, y , width, 'left');
+            var itemCount = Number($gameParty._items[this.keyItems[i].id] || 0);
+            this.drawText(this.keyItems[i].name, 0, y , width, 'left');
             this.drawText('' + itemCount , 0 , y,  width, 'right');
         };
         
