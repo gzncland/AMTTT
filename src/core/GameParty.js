@@ -3,15 +3,15 @@
 //=============================================================================
 
 (function() {
-	//------------------------------------------------------------------------
-	//Game_Party属性追加
-	//------------------------------------------------------------------------
-	//获取第一位角色
-	Object.defineProperties(Game_Party.prototype, {
-		activeActor : {
-			get : function() {
-				return $gameActors._data[1];
-			}, configurable: false
-		}
-	});
+    //------------------------------------------------------------------------
+    //Game_Party属性追加
+    //------------------------------------------------------------------------
+    //获取第一位角色
+    Object.defineProperties(Game_Party.prototype, {
+        activeActor : {
+            get : function() {
+                return $gameActors._data[1];
+            }, configurable: false
+        }
+    });
 })();
