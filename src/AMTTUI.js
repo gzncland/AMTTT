@@ -5,4 +5,4 @@
  * @help 实现AMTT标准用户界面的插件
  */
 
-var WindowMapStatus = require('./core/WindowMapStatus');
+var WindowMapStatus = require('./ui/WindowMapStatus');
