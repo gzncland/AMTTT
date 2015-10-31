@@ -25,11 +25,11 @@
 	};
 
 	Window_MapStatus.prototype.windowWidth = function() {
-	    return 360;
+	    return 240;
 	};
 
 	Window_MapStatus.prototype.windowHeight = function() {
-	    return 480;
+	    return Graphics.boxHeight;
 	};
 
 	Window_MapStatus.prototype.refresh = function() {
@@ -40,6 +40,19 @@
         //HP
         this.drawText('HP', 0, 0, width, 'left');
 	    this.drawText(''  + $amttActor.activeActor.hp, 0, 0,  width, 'right');
+	    //ATK
+        this.drawText('ATK', 0, this.lineHeight(), width, 'left');
+	    this.drawText(''  + $amttActor.activeActor.atk, 0, this.lineHeight(),  width, 'right');
+	    //DEF
+        this.drawText('DEF', 0, this.lineHeight() * 2, width, 'left');
+	    this.drawText(''  + $amttActor.activeActor.def, 0, this.lineHeight() * 2,  width, 'right');
+
+	    //GOLD
+	    this.drawText('GOLD', 0, this.lineHeight() * 4, width, 'left');
+	    this.drawText(''  + $gameParty.gold(), 0, this.lineHeight() * 4,  width, 'right');
+	    //EXP
+	    this.drawText('EXP', 0, this.lineHeight() * 5, width, 'left');
+	    this.drawText(''  + $amttActor.activeActor.currentExp(), 0, this.lineHeight() * 5,  width, 'right');
 	};
 
 	Window_MapStatus.prototype.drawBackground = function(x, y, width, height) {
