@@ -7,3 +7,4 @@
 
 var WindowMapStatus = require('./ui/WindowMapStatus');
 var GameCharacter = require('./ui/GameCharacter');
+var WindowEnemyBook = require('./ui/WindowEnemyBook');

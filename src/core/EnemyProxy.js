@@ -8,9 +8,24 @@
     }
     //抛出设定异常
     function ThrowEnemyProxyError(setEnemy,setParamsName){
-        throw new Error('数据库中的敌人设定错误.缺少' + setParamsName + '属性</br>敌人ID:' + setEnemy.id + ' 名称:' + setEnemy.name);
+        throw new Error('数据库中的敌人设定错误.缺少 <' + setParamsName + ':> 属性</br>敌人ID:' + setEnemy.id + ' 名称:' + setEnemy.name);
     }
-
+    //获取属性
+    AMTTEnemyProxy.prototype.getEnemyHp = function(setEnemy){
+        return Number(setEnemy.meta.hp || ThrowEnemyProxyError(setEnemy, 'hp'));
+    }
+    AMTTEnemyProxy.prototype.getEnemyAtk = function(setEnemy){
+        return Number(setEnemy.meta.atk || ThrowEnemyProxyError(setEnemy, 'atk'));
+    }
+    AMTTEnemyProxy.prototype.getEnemyDef = function(setEnemy){
+        return Number(setEnemy.meta.def || ThrowEnemyProxyError(setEnemy, 'def'));
+    }
+    AMTTEnemyProxy.prototype.getEnemyGold = function(setEnemy){
+        return Number(setEnemy.meta.gold || ThrowEnemyProxyError(setEnemy, 'gold'));
+    }
+    AMTTEnemyProxy.prototype.getEnemyExp = function(setEnemy){
+        return Number(setEnemy.meta.exp || ThrowEnemyProxyError(setEnemy, 'exp'));
+    }
     //战斗预测
     //setActor 角色
     //setEnemy 敌人
@@ -30,7 +45,7 @@
             return 0;
         }
         //读取敌人HP
-        var enemyHp = Number(setEnemy.meta.hp || ThrowEnemyProxyError(setEnemy,'HP'));
+        var enemyHp = this.getEnemyHp(setEnemy);
         //附加角色的战斗附加伤害
         enemyHp -= this.getActorExtraDamage(setActor, setEnemy);
         if(enemyHp < 0){
@@ -56,7 +71,7 @@
 
     //获取角色每回合伤害
     AMTTEnemyProxy.prototype.getActorDpt = function(setActor, setEnemy){
-        var enemyDef = Number(setEnemy.meta.def || ThrowEnemyProxyError(setEnemy,'DEF'));
+        var enemyDef = this.getEnemyDef(setEnemy);
         var actorAtk = setActor.atk;
         return actorAtk - enemyDef;
     }
@@ -69,7 +84,7 @@
 
     //获取敌人每回合伤害
     AMTTEnemyProxy.prototype.getEnemyDpt = function(setActor, setEnemy){
-        var enemyAtk = Number(setEnemy.meta.atk || ThrowEnemyProxyError(setEnemy,'ATK'));
+        var enemyAtk = this.getEnemyAtk(setEnemy);
         var actorDef = setActor.def
         return enemyAtk - actorDef;
     }

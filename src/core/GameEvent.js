@@ -40,6 +40,12 @@
                 //否的场合 抛出异常
                 throw new Error('数据库中未找到编号为' + enemyId + '的敌人.</br>触发异常的事件位于地图编号:' + this._mapId + ' 事件ID:' + this._eventId + ' 坐标: ' + this.event().x + ',' + this.event().y);
             }, configurable: false
+        },
+        enemyProxy : {
+            get : function() {
+                var result = require('./EnemyProxy');
+                return result;
+            }, configurable: false
         }
     });
 })();
