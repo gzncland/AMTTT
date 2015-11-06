@@ -1,15 +1,9 @@
 //=============================================================================
 // WindowMapStatus.js ver 0.0.3
 //=============================================================================
-
-/*:
- * @plugindesc 在地图上显示角色状态的类
- * @author Shadow Studio
- *
- */
  (function() {
 
-     function Window_MapStatus() {
+    function Window_MapStatus() {
         this.initialize.apply(this, arguments);
     }
 

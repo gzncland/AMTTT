@@ -26,6 +26,7 @@
     AMTTEnemyProxy.prototype.getEnemyExp = function(setEnemy){
         return Number(setEnemy.meta.exp || ThrowEnemyProxyError(setEnemy, 'exp'));
     }
+
     //战斗预测
     //setActor 角色
     //setEnemy 敌人

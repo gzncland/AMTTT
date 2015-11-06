@@ -1,25 +1,7 @@
 //=============================================================================
 // WindowEnemyBook.js ver 0.0.1
 //=============================================================================
-
-/*:
- * @plugindesc 怪物手册
- * @author Shadow Studio
- *
- */
  (function() {
-
-    Window_Base.prototype.drawDirectionCharacter = function(characterName, characterIndex, characterDirection, x, y) {
-        var bitmap = ImageManager.loadCharacter(characterName);
-        var big = ImageManager.isBigCharacter(characterName);
-        var pw = bitmap.width / (big ? 3 : 12);
-        var ph = bitmap.height / (big ? 4 : 8);
-        var n = characterIndex;
-        var sx = (n % 4 * 3 + 1) * pw;
-        var dirY = Math.floor(characterDirection / 2) - 1;
-        var sy = (Math.floor(n / 4) * 4 + dirY) * ph;
-        this.contents.blt(bitmap, sx, sy, pw, ph, x - pw / 2, y - ph);
-    };
 
     function Window_EnemyBook() {
         this.initialize.apply(this, arguments);
@@ -39,12 +21,22 @@
         this.refresh();
     };
 
+    //初始化敌人列表 并排序
     Window_EnemyBook.prototype.initializeEnemyList = function() {
         this.enemiesList = [];
+        //添加敌人
         var enemmiesTempList = $gameMap.enemiesList;
         for(var enemy in enemmiesTempList){
             this.enemiesList.push(enemmiesTempList[enemy]);
         }
+        //排序
+        this.enemiesList.sort( 
+            function(enemyA, enemyB){
+                var damageA = enemyA.damageToActiveActor;
+                var damageB = enemyB.damageToActiveActor;
+                return damageA > damageB ? 1 : -1;
+            }
+        );
     };
 
     Window_EnemyBook.prototype.windowWidth = function() {
@@ -64,8 +56,9 @@
         return Math.floor(clientHeight / this.numVisibleRows());
     };
 
+    //每页显示的行数
     Window_EnemyBook.prototype.numVisibleRows = function() {
-        return 4;
+        return 6;
     };
 
 
@@ -75,6 +68,7 @@
     };
 
     Window_EnemyBook.prototype.drawItemBackground = function(index) {
+        //高亮选择区域背景
         if (index === this._pendingIndex) {
             var rect = this.itemRect(index);
             var color = this.pendingColor();
@@ -91,8 +85,8 @@
         var enemyEvent = this.enemiesList[index];
         var enemyData = enemyEvent.enemyData;
         var enemyProxy = enemyEvent.enemyProxy;
-        var damage = enemyProxy.battle($gameParty.activeActor ,enemyData);
-        this.drawText(enemyData.battlerName, rect.x + 4, rect.y + 1, rect.width, 'left');
+        var damage = enemyEvent.damageToActiveActor;//enemyProxy.battle($gameParty.activeActor ,enemyData);
+        this.drawText(enemyData.name, rect.x + 4, rect.y + 1, rect.width, 'left');
         this.drawDirectionCharacter(enemyEvent.characterName(), enemyEvent.characterIndex(),enemyEvent._originalDirection,rect.x + 24, rect.y + 88);
         //HP
         this.drawText(TextManager.hp                   , rect.x + COLUMN_1_OFFSET_X, rect.y + 1, 128, 'left');

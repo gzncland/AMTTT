@@ -46,6 +46,11 @@
                 var result = require('./EnemyProxy');
                 return result;
             }, configurable: false
+        },
+        damageToActiveActor : {
+            get : function(){
+                return this.enemyProxy.battle($gameParty.activeActor, this.enemyData);
+            }, configurable: false
         }
     });
 })();
