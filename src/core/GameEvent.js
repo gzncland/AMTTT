@@ -6,7 +6,6 @@
     //------------------------------------------------------------------------
     //Game_Event方法重写
     //------------------------------------------------------------------------
-
     Object.defineProperties(Game_Event.prototype, {
         //获取敌人ID
         //result  -1:非敌人事件 >0:敌人ID
@@ -20,6 +19,36 @@
                     return result;
                 }
                 //未定义<e:number>的场合(普通事件)
+                return -1;
+            }, configurable: false
+        },
+        //获取上楼梯ID
+        //result -1:非楼梯事件 >0:楼梯ID
+        upStairId : {
+            get : function() {
+                //从note中提取<us:number> 属性
+                var result = Number(this.event().meta.us || -1);
+                //是否定义了<us:number>标签
+                if(result != undefined){
+                    //是的场合
+                    return result;
+                }
+                //未定义<us:number>的场合(普通事件)
+                return -1;
+            }, configurable: false
+        },
+        //获取下楼梯ID
+        //result -1:非楼梯事件 >0:楼梯ID
+        downStairId : {
+            get : function() {
+                //从note中提取<ds:number> 属性
+                var result = Number(this.event().meta.ds || -1);
+                //是否定义了<ds:number>标签
+                if(result != undefined){
+                    //是的场合
+                    return result;
+                }
+                //未定义<ds:number>的场合(普通事件)
                 return -1;
             }, configurable: false
         },
