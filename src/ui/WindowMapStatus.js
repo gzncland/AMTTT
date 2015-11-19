@@ -21,7 +21,7 @@
                 this.keyItems.push($dataItems[i]);
             }
         };
-        this.refresh();
+        // this.refresh();
     };
 
     Window_MapStatus.prototype.windowWidth = function() {
@@ -42,7 +42,7 @@
 
     var STATUS_KEY_Y = BASE_OFFSET_Y + LINE_HEIGHT * 7;
 
-    Window_MapStatus.prototype.refresh = function() {
+    Window_MapStatus.prototype.update = function() {
         this.contents.clear();
         var width = this.contentsWidth();
         var actor = $gameParty.activeActor;
@@ -76,23 +76,16 @@
         
     };
 
-     Scene_Map.prototype.createMapStatusWindow = function() {
+    Scene_Map.prototype.createMapStatusWindow = function() {
         this._mapStatusWindow = new Window_MapStatus();
-        this.addChild(this._mapStatusWindow);
+        this.addWindow(this._mapStatusWindow);
     };
 
-    var Scene_Map_Create_Display_Objects = Scene_Map.prototype.createDisplayObjects;
+    var Scene_Map_Create_All_Windows = Scene_Map.prototype.createAllWindows;
     //添加窗口
-    Scene_Map.prototype.createDisplayObjects = function() {
-        Scene_Map_Create_Display_Objects.call(this);
+    Scene_Map.prototype.createAllWindows = function() {
         this.createMapStatusWindow();
         this._mapStatusWindow.open();
-    };
-    //更新窗口
-    var Scene_Map_Update = Scene_Map.prototype.update;
-
-    Scene_Map.prototype.update = function() {
-        Scene_Map_Update.call(this);
-        this._mapStatusWindow.refresh();
+        Scene_Map_Create_All_Windows.call(this);
     };
 })();

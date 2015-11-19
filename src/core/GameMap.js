@@ -124,9 +124,26 @@
                 //获取地图事件数组
                 var events = this.events();
                 for (var i = 0; i < events.length; i++){
+                    //是否是敌人
                     var enemyId = events[i].enemyId;
-                    //是否是敌人,并且不在结果集中
-                    if(enemyId != -1 && result[enemyId] === undefined){
+                    if(enemyId == -1){
+                        continue;
+                    }
+                    //获取独立开关
+                    var deadKey = [events[i]._mapId, events[i]._eventId, events[i].deadSwitchId];
+                    if ($gameSelfSwitches.value(deadKey) === true) {
+                        //敌人已经死亡 跳过
+                        continue;
+                    }
+                    if(events[i].activeSwitchId !== null){
+                        var activeKey = [events[i]._mapId, events[i]._eventId, events[i].activeSwitchId];
+                        if ($gameSelfSwitches.value(activeKey) === false) {
+                            //敌人尚未激活 跳过
+                            continue;
+                        }
+                    }
+                    //并且不在结果集中
+                    if(result[enemyId] === undefined){
                         result[enemyId] = events[i];
                     }
                 };

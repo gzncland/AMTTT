@@ -22,6 +22,40 @@
                 return -1;
             }, configurable: false
         },
+        //获取标记敌人已经死亡的开关(默认A)
+        //result  开关编号
+        deadSwitchId : {
+            get : function() {
+                //从note中提取<d:A|B|C|D> 属性
+                var result = String(this.event().meta.d || 'A');
+                if(    result !== 'A'
+                    && result !== 'B'
+                    && result !== 'C'
+                    && result !== 'D'){
+                    throw new Error('敌人死亡开关标记只能为以下4个值:"A" "B" "C" "D"</br>触发异常的事件位于地图编号:' + this._mapId + ' 事件ID:' + this._eventId + ' 坐标: ' + this.event().x + ',' + this.event().y);
+                }
+                return result;
+            }, configurable: false
+        },
+        //获取标记敌人是否激活的开关(默认无)
+        //result  开关编号
+        activeSwitchId : {
+            get : function() {
+                //从note中提取<a:A|B|C|D> 属性
+                var result = String(this.event().meta.a || undefined);
+                if(result === 'undefined'){
+                    return null;
+                }
+                if(    result !== 'A'
+                    && result !== 'B'
+                    && result !== 'C'
+                    && result !== 'D'){
+                    console.log(result);
+                    throw new Error('敌人激活开关标记只能为以下4个值:"A" "B" "C" "D",当前值为' + result + '</br>触发异常的事件位于地图编号:' + this._mapId + ' 事件ID:' + this._eventId + ' 坐标: ' + this.event().x + ',' + this.event().y);
+                }
+                return result;
+            }, configurable: false
+        },
         //获取上楼梯ID
         //result -1:非楼梯事件 >0:楼梯ID
         upStairId : {
