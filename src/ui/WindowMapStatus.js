@@ -51,13 +51,13 @@
         this.drawText(actor.name(), BASE_OFFSET_Y, 0, width - BASE_OFFSET_Y, 'left');
         //HP
         this.drawText('HP', 0, STATUS_HP_Y, width, 'left');
-        this.drawText(''  + actor.hp, 0, STATUS_HP_Y,  width, 'right');
+        this.drawText(''  + actor.amttHP, 0, STATUS_HP_Y,  width, 'right');
         //ATK
         this.drawText('ATK', 0, STATUS_ATK_Y, width, 'left');
-        this.drawText(''  + actor.atk, 0, STATUS_ATK_Y,  width, 'right');
+        this.drawText(''  + actor.amttATK, 0, STATUS_ATK_Y,  width, 'right');
         //DEF
         this.drawText('DEF', 0, STATUS_DEF_Y, width, 'left');
-        this.drawText(''  + actor.def, 0, STATUS_DEF_Y,  width, 'right');
+        this.drawText(''  + actor.amttDEF, 0, STATUS_DEF_Y,  width, 'right');
 
         //GOLD
         this.drawText('GOLD',0 , STATUS_GOLD_Y, width, 'left');

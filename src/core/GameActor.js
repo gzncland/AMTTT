@@ -3,11 +3,63 @@
 //=============================================================================
 
 (function() {
-	function AMTTActor(){
+    //------------------------------------------------------------------------
+    //Game_Actor
+    //------------------------------------------------------------------------
+    var _Game_Actor_initMembers = Game_Actor.prototype.initMembers;
+    Game_Actor.prototype.initMembers = function(){
+        _Game_Actor_initMembers.call(this);
+        this._amtt_atk = 0;
+        this._amtt_hp = 0;
+        this._amtt_def = 0;
+        this._amtt_exp = 0;
+    }
 
-	}
+    var _Game_Actor_setup = Game_Actor.prototype.setup;
+    Game_Actor.prototype.setup = function(actorId) {
+        _Game_Actor_setup.call(this, actorId);
+        var actor = $dataActors[actorId];
+        var hp = Number(actor.meta.hp || -1);
+        if(hp <= 0){
+            throw new Error('角色未定义HP属性或HP属性定义错误.</br>触发异常的角色ID:' + actorId + '名称:' + actor.name);
+        }
+        this._amtt_hp = hp;
 
-	
+        var atk = Number(actor.meta.atk || -1);
+        if(atk < 0){
+             throw new Error('角色未定义ATK属性或ATK属性定义错误.</br>触发异常的角色ID:' + actorId + '名称:' + actor.name);
+        }
+        this._amtt_atk = atk;
 
-	module.exports = new AMTTActor();
+        var def = Number(actor.meta.def || -1);
+        if(def < 0){
+            throw new Error('未定义DEF属性或DEF属性定义错误.</br>触发异常的角色ID:' + actorId + '名称:' + actor.name);
+        }
+        this._amtt_def = def;
+    };    
+
+    Object.defineProperties(Game_Actor.prototype, {
+        amttHP : {
+            get : function(){
+                return this._amtt_hp;
+            }, configurable: true 
+        },
+        amttATK : {
+            get : function(){
+                return this._amtt_atk;
+            }, configurable: true 
+        },
+        amttDEF : {
+            get : function(){
+                return this._amtt_def;
+            }, configurable: true 
+        },
+        amttEXP : {
+            get : function(){
+                return this._amtt_exp;
+            }, configurable: true 
+        }
+    });
+
+    
 })();

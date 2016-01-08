@@ -34,13 +34,23 @@
             function(enemyA, enemyB){
                 var damageA = enemyA.damageToActiveActor;
                 var damageB = enemyB.damageToActiveActor;
+                //伤害溢出
+                
+                if(damageB == -1 && damageA == -1){
+                    //防御力大的在后
+                    return enemyA.enemyData.meta.def > enemyB.enemyData.meta.def ? 1 : -1;
+                }else if(damageA == -1){
+                    return 1;
+                }else if(damageB == -1){
+                    return -1;
+                }
                 return damageA > damageB ? 1 : -1;
             }
         );
     };
 
     Window_EnemyBook.prototype.windowWidth = function() {
-        return Graphics.boxWidth - 240;
+        return Graphics.boxWidth - 128;
     };
 
     Window_EnemyBook.prototype.windowHeight = function() {
@@ -105,6 +115,9 @@
         this.drawText(enemyProxy.getEnemyExp(enemyData), rect.x + COLUMN_2_OFFSET_X, rect.y + 32, 128, 'right');
         //DAMAGE
         this.drawText('Dam'                            , rect.x + COLUMN_3_OFFSET_X, rect.y + 32, 128, 'left');
+        if(damage == -1){
+            damage = '-'
+        }
         this.drawText(damage                           , rect.x + COLUMN_3_OFFSET_X, rect.y + 32, 128, 'right');
     };
 

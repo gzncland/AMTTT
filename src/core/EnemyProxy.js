@@ -73,7 +73,7 @@
     //获取角色每回合伤害
     AMTTEnemyProxy.prototype.getActorDpt = function(setActor, setEnemy){
         var enemyDef = this.getEnemyDef(setEnemy);
-        var actorAtk = setActor.atk;
+        var actorAtk = setActor.amttATK;
         return actorAtk - enemyDef;
     }
 
@@ -86,7 +86,7 @@
     //获取敌人每回合伤害
     AMTTEnemyProxy.prototype.getEnemyDpt = function(setActor, setEnemy){
         var enemyAtk = this.getEnemyAtk(setEnemy);
-        var actorDef = setActor.def
+        var actorDef = setActor.amttDEF
         return enemyAtk - actorDef;
     }
 
