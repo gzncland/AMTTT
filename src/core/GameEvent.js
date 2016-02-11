@@ -50,7 +50,7 @@
                     && result !== 'B'
                     && result !== 'C'
                     && result !== 'D'){
-                    console.log(result);
+                    
                     throw new Error('敌人激活开关标记只能为以下4个值:"A" "B" "C" "D",当前值为' + result + '</br>触发异常的事件位于地图编号:' + this._mapId + ' 事件ID:' + this._eventId + ' 坐标: ' + this.event().x + ',' + this.event().y);
                 }
                 return result;

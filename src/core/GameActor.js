@@ -38,6 +38,50 @@
         this._amtt_def = def;
     };    
 
+    Game_Actor.prototype.amttGainATK = function(setValue){
+        var result = Number(setValue || NaN);
+        if(isNaN(setValue)){
+            throw new Error('调用Game_Actor.amttGainATK(' + setValue + ')的参数设置错误');
+        }
+        this._amtt_atk += result;
+        if(this._amtt_atk < 0){
+            this._amtt_atk = 0;
+        }
+    };
+
+    Game_Actor.prototype.amttGainDEF = function(setValue){
+        var result = Number(setValue || NaN);
+        if(isNaN(setValue)){
+            throw new Error('调用Game_Actor.amttGainDEF(' + setValue + ')的参数设置错误');
+        }
+        this._amtt_def += result;
+        if(this._amtt_def < 0){
+            this._amtt_def = 0;
+        }
+    };
+
+    Game_Actor.prototype.amttGainHP = function(setValue){
+        var result = Number(setValue || NaN);
+        if(isNaN(setValue)){
+            throw new Error('调用Game_Actor.amttGainHP(' + setValue + ')的参数设置错误');
+        }
+        this._amtt_hp += result;
+        if(this._amtt_hp < 0){
+            this._amtt_hp = 0;
+        }
+    };
+
+    Game_Actor.prototype.amttGainEXP = function(setValue){
+        var result = Number(setValue || NaN);
+        if(isNaN(setValue)){
+            throw new Error('调用Game_Actor.amttGainEXP(' + setValue + ')的参数设置错误');
+        }
+        this._amtt_exp += result;
+        if(this._amtt_exp < 0){
+            this._amtt_exp = 0;
+        }
+    };
+
     Object.defineProperties(Game_Actor.prototype, {
         amttHP : {
             get : function(){
@@ -58,6 +102,11 @@
             get : function(){
                 return this._amtt_exp;
             }, configurable: true 
+        },
+        amttIsDead : {
+            get : function(){
+                return this._amtt_hp <= 0;
+            }, configurable: false 
         }
     });
 
