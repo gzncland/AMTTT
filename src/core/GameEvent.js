@@ -71,6 +71,25 @@
                 return -1;
             }, configurable: false
         },
+        //获取传送点信息
+        //result 传送点信息
+        transportData : {
+            get : function() {
+                var GameTransportPoint = require('./GameTransportPoint'); 
+                var point = new GameTransportPoint();
+                //从note中提取<nodetec> 属性
+                // var canDetected = Number(this.event().meta.nodetec || -1);
+                // console.log(canDetected);
+                //是否定义了<nodetec>标签
+                // if(canDetected != undefined){
+                //     //是的场合
+                //     point._canDetected = false;
+                // }
+                point.eventId = this._eventId;
+                point.mapId = this._mapId;
+                return point;
+            }, configurable: false
+        },
         //获取下楼梯ID
         //result -1:非楼梯事件 >0:楼梯ID
         downStairId : {

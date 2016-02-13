@@ -68,9 +68,9 @@
             }
         }else if (command === 'GoStair') {
             if(args.length == 0){             
-                console.debug(gameEvent);
-                console.debug(gameEvent.upStairId);
-                console.debug(gameEvent.downStairId);
+                // console.debug(gameEvent);
+                // console.debug(gameEvent.upStairId);
+                // console.debug(gameEvent.downStairId);
                 var isUpStair = false;
                 if(gameEvent.upStairId != -1){
                     //上楼
@@ -101,6 +101,7 @@
                                     if(stairId == gameEvent.upStairId){
                                         x = map.events[i].x;
                                         y = map.events[i].y;
+                                        $gameParty.detectedTransportPoint(map.events[i]);
                                         break;
                                     } 
                                 }else{
@@ -109,6 +110,7 @@
                                     if(stairId == gameEvent.downStairId){
                                         x = map.events[i].x;
                                         y = map.events[i].y;
+                                        $gameParty.detectedTransportPoint(map.events[i]);
                                         break;
                                     } 
                                 }

@@ -4,6 +4,7 @@
  *
  * @help 使用AMTT必须添加的插件
  */
+var GameTransportPoint = require('./core/GameTransportPoint');
 var GameInterpreter = require('./core/GameInterpreter');
 var DataManager = require('./core/DataManager');
 var EnemyProxy = require('./core/EnemyProxy');
