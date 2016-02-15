@@ -10,7 +10,7 @@
     }
     Game_Party.prototype.detectedTransportPoint = function(setEvent) {
         console.log(setEvent);
-        // var point = setEvent.transportData;
+        var point = setEvent.transportData;
         // console.log(point);
         // if(point.canDetected == false){
         //     return;
@@ -25,7 +25,8 @@
         //         return false;
         //     }
         // };
-        // this.amtt_transportPoints.add(point);
+        this.amtt_transportPoints.push(point);
+        console.log(this.amtt_transportPoints);
         return true;
     };
 

@@ -78,13 +78,13 @@
                 var GameTransportPoint = require('./GameTransportPoint'); 
                 var point = new GameTransportPoint();
                 //从note中提取<nodetec> 属性
-                // var canDetected = Number(this.event().meta.nodetec || -1);
-                // console.log(canDetected);
+                var canDetected = Number(this.event().meta.nodetec || -1);
+                console.log(canDetected);
                 //是否定义了<nodetec>标签
-                // if(canDetected != undefined){
-                //     //是的场合
-                //     point._canDetected = false;
-                // }
+                if(canDetected != undefined){
+                    //是的场合
+                    point.canDetected = false;
+                }
                 point.eventId = this._eventId;
                 point.mapId = this._mapId;
                 return point;
