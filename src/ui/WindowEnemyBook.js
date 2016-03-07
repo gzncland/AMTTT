@@ -50,7 +50,7 @@
     };
 
     Window_EnemyBook.prototype.windowWidth = function() {
-        return Graphics.boxWidth - 128;
+        return Graphics.boxWidth - 192;
     };
 
     Window_EnemyBook.prototype.windowHeight = function() {
@@ -132,6 +132,7 @@
     Window_EnemyBook.prototype.setFormationMode = function(formationMode) {
         this._formationMode = formationMode;
     };
+    
     Scene_Menu.prototype.createStatusWindow = function() {
         this._statusWindow = new Window_EnemyBook(this._commandWindow.width, 0);
         this.addWindow(this._statusWindow);

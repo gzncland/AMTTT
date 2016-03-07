@@ -8,3 +8,4 @@ var WindowBase = require('./ui/WindowBase');
 var WindowMapStatus = require('./ui/WindowMapStatus');
 var GameCharacter = require('./ui/GameCharacter');
 var WindowEnemyBook = require('./ui/WindowEnemyBook');
+var WindowMenuCommand = require('./ui/WindowMenuCommand');

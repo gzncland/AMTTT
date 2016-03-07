@@ -12,3 +12,5 @@ var GameParty = require('./core/GameParty');
 var GameActor = require('./core/GameActor');
 var GameEvent = require('./core/GameEvent');
 var GameMap = require('./core/GameMap');
+var SceneTransport = require('./core/SceneTransport');
+var SceneMenu = require('./core/SceneMenu');

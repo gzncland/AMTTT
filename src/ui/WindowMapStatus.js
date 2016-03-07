@@ -25,7 +25,7 @@
     };
 
     Window_MapStatus.prototype.windowWidth = function() {
-        return 240;
+        return 192;
     };
 
     Window_MapStatus.prototype.windowHeight = function() {
