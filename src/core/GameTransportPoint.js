@@ -14,8 +14,6 @@
     GameTransportPoint.prototype.initialize = function(){
         this.mapId = 0;
         this.eventId = 0;
-        // this.mapX = 0;
-        // this.mapY = 0;
         this.canDetected = true;
     }
     module.exports = GameTransportPoint;

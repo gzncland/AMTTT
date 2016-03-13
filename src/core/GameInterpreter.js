@@ -101,7 +101,7 @@
                                     if(stairId == gameEvent.upStairId){
                                         x = map.events[i].x;
                                         y = map.events[i].y;
-                                        var stairEvent = new Game_Event(map.mapId, i);
+                                        var stairEvent = new Game_Event(mapId, i);
                                         $gameParty.detectedTransportPoint(stairEvent);//map.events[i]);
                                         break;
                                     } 
@@ -111,7 +111,7 @@
                                     if(stairId == gameEvent.downStairId){
                                         x = map.events[i].x;
                                         y = map.events[i].y;
-                                        var stairEvent = new Game_Event(map.mapId, i);
+                                        var stairEvent = new Game_Event(mapId, i);
                                         $gameParty.detectedTransportPoint(stairEvent);
                                         break;
                                     } 

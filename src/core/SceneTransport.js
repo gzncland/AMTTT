@@ -32,8 +32,44 @@
     	this._commandWindow.selectLast();
 	};
 
+	Scene_Transport.prototype.canTrans = function() {
+	    return this._commandWindow._data.length > 0 && this._commandWindow._data[0] != null;
+	};
+
+	Scene_Transport.prototype.transport = function() {
+		var mapId = this._commandWindow._data[this._commandWindow.index()].mapId;
+		var eventId = this._commandWindow._data[this._commandWindow.index()].eventId;
+		var x = -1;
+		var y = -1;
+        //读取临时地图
+        DataManager.loadMapDataToObject2(mapId, function(map){
+            DataManager.onLoadMap(map);
+            //找出楼梯
+            x = map.events[eventId].x;
+            y = map.events[eventId].y;
+            
+            //有匹配的楼梯
+            if(x != -1 && y != -1){
+            	$gamePlayer.reserveTransfer(mapId, x, y);
+        		$gamePlayer.requestMapReload();
+                SceneManager.goto(Scene_Map);
+            }else{
+                throw new Error('没有匹配的楼梯');
+            }
+        });
+		this._commandWindow.refresh();
+    	this._commandWindow.activate();
+	};
+
 	Scene_Transport.prototype.onTransOk = function() {
 	    //TODO:Trnas
+	    if(this.canTrans()){
+	    	this.transport();
+	    }else{
+	    	SoundManager.playBuzzer();
+	    	this._commandWindow.refresh();
+    		this._commandWindow.activate();
+	    }
 	};
 
 	Scene_Menu.prototype.commandTrans = function() {
@@ -89,7 +125,7 @@
 	        var rect = this.itemRect(index);
 	        // rect.width -= this.textPadding();
 	        // this.changePaintOpacity(this.isEnabled(item));
-	        this.drawText(item.eventId, rect.x,  rect.y, rect.width);
+	        this.drawText('mid = ' + item.mapId + ' eid = ' + item.eventId, rect.x,  rect.y, rect.width);
 	        // this.drawItemNumber(item, rect.x, rect.y, rect.width);
 	        // this.changePaintOpacity(1);
 	    }

@@ -9,22 +9,20 @@
         this.amtt_transportPoints = [];
     }
     Game_Party.prototype.detectedTransportPoint = function(setEvent) {
-        console.log(setEvent);
         var point = setEvent.transportData;
-        // console.log(point);
-        // if(point.canDetected == false){
-        //     return;
-        // }
+        if(point.canDetected == false){
+            return;
+        }
         // // var pointInitFunc = require('./GameTransportPoint'); 
         // // var point = new GameTransportPoint();
 
         // point.eventId = setEvent._eventId;
         // point.mapId = setEvent._mapId;
-        // for (var i = 0;i < this.amtt_transportPoints.length; i++) {
-        //     if(this.amtt_transportPoints[i].eventId == setEvent._eventId){
-        //         return false;
-        //     }
-        // };
+        for (var i = 0;i < this.amtt_transportPoints.length; i++) {
+            if(this.amtt_transportPoints[i].eventId == point.eventId && this.amtt_transportPoints[i].mapId == point.mapId){
+                return false;
+            }
+        };
         this.amtt_transportPoints.push(point);
         console.log(this.amtt_transportPoints);
         return true;

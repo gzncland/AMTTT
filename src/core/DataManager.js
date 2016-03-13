@@ -24,6 +24,15 @@
         }
     };
 
+    DataManager.loadMapDataToObject2 = function(mapId, onCompleteCallback) {
+        if (mapId > 0) {
+            var filename = 'Map%1.json'.format(mapId.padZero(3));
+            return this.loadDataFileToObject(filename, onCompleteCallback);
+        } else {
+            throw new Error('找不到地图' + filename + '<br>请检查传送楼梯是否有配对正确');
+        }
+    };
+
     DataManager.loadDataFileToObject = function(src, onCompleteCallback) {
         var xhr = new XMLHttpRequest();
         var url = 'data/' + src;
